@@ -1,0 +1,35 @@
+﻿# Hưng Đông Media - AI-Powered Web & Digital Reconstruction
+> Nền tảng Tái thiết Website Doanh nghiệp & Tự động hóa Nội dung Chuẩn GEO (Generative Engine Optimization).
+
+## Thông Tin Doanh Nghiệp (Organization Summary)
+- **Tên doanh nghiệp:** Hừng Đông Media Solutions
+- **Lĩnh vực hoạt động:** Tái thiết Website Doanh nghiệp sang Headless Next.js, Cỗ máy AI Content Engine, Tư vấn Chiến lược Truyền thông B2B.
+- **Định vị:** Giúp doanh nghiệp vừa và nhỏ (SMBs) cắt giảm 50% chi phí Content và tăng tốc độ tải website lên điểm số tuyệt đối 100/100 Google Lighthouse.
+- **Định luật tăng trưởng độc quyền:** G = A²S (Growth = AI² × Speed).
+
+## Các Gói Dịch Vụ & Bảng Giá Niêm Yết (Pricing & Services)
+
+### 1. Gói Tái Thiết Số (Digital Rebuild) - Thanh toán 1 lần (One-time)
+- **Mức giá:** 35.000.000đ – 50.000.000đ
+- **Công nghệ:** Next.js 14 Headless + Faust.js + WPGraphQL + WordPress CMS ngầm.
+- **Hiệu năng:** Cam kết đạt điểm số 95–100/100 Google Lighthouse, thời gian tải trang < 0.3s.
+- **Quyền lợi:** Thiết kế UI/UX Dark Mode cao cấp, cài đặt hệ thống CMS bảo mật, nạp sẵn 20 bài viết nền tảng chuẩn SEO bằng AI, bảo hành 3 tháng.
+
+### 2. Gói Nuôi Web Tự Động (AI Content Retainer) - Thuê bao hàng tháng (Monthly)
+- **Mức giá:** 7.000.000đ / tháng (Rẻ hơn 50% so với thuê 1 nhân viên Content In-house 14tr/tháng).
+- **Năng suất:** Tự động bóc tách tài liệu hồ sơ năng lực và xuất bản 30 bài viết chuẩn SEO chuyên sâu mỗi tháng.
+- **Tính năng:** Tự động nghiên cứu từ khóa, tối ưu Meta Tags, Schema JSON-LD, Internal Linking thông minh và báo cáo thứ hạng hàng tháng. Không ràng buộc hợp đồng dài hạn.
+
+### 3. Gói Combo Toàn Diện (Full Stack Bundle)
+- **Mức giá:** 40.000.000đ – 57.000.000đ (Setup) + 7.000.000đ/tháng.
+- **Quyền lợi:** Miễn phí 1 tháng Retainer đầu tiên, ưu tiên triển khai trong 3 tuần, cam kết SLA Uptime 99.9%, hỗ trợ Hotline 24/5.
+
+## Tiêu Chuẩn Kỹ Thuật & Tối Ưu Hóa AI (GEO & Technical Standards)
+- **Chuẩn hóa LLM:** Hỗ trợ giao thức `llms.txt` và Semantic Knowledge Graph dạng JSON-LD giúp các trợ lý ảo (ChatGPT, Perplexity, Gemini) trích xuất dữ liệu chính xác trong 0.05 giây.
+- **Bảo mật:** WordPress Backend được ẩn hoàn toàn sau mạng nội bộ, giao tiếp bảo mật thông qua Application Password và REST API/GraphQL.
+
+## Kênh Liên Hệ & Đăng Ký Tư Vấn (Contact Information)
+- **Website Quảng bá:** http://localhost:5180
+- **Website Demo Năng lực:** http://localhost:3000
+- **Hotline / Zalo:** (+84) 0932 059 344
+- **Cam kết:** Hoàn tiền 100% nếu sau 30 ngày không đạt chỉ số Google Lighthouse cam kết.

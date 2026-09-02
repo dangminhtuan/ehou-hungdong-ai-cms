@@ -1,0 +1,49 @@
+// CSS Variables - Hừng Đông Premium Dark Mode
+:root {
+	// Color Definitions.
+	--wpe--color--black: #fafafa; // Inverted for Dark Mode text
+	--wpe--color--white: #09090b; // Inverted for Dark Mode background
+	--wpe--color--offwhite: #18181b; 
+	--wpe--color--neutral: rgba(255, 255, 255, 0.05);
+	--wpe--color--slate: #27272a;
+	--wpe--color--purple: #ff6b00; // Hừng Đông Sunrise Orange
+
+	// Color Assignments.
+	--wpe--color--accent: var(--wpe--color--purple);
+	--wpe--color--accent--dark: #cc5500;
+	--wpe--color--title: var(--wpe--color--black);
+	--wpe--link--color: var(--wpe--color--accent);
+	--wpe--code--color: var(--wpe--color--accent);
+	--wpe--code--background-color: var(--wpe--color--offwhite);
+	
+    // Glassmorphism Header
+	--wpe--header--color: var(--wpe--color--black);
+	--wpe--header--background-color: rgba(9, 9, 11, 0.8);
+	--wpe--navigation-menu--color: var(--wpe--color--black);
+	--wpe--navigation-menu--color--hover: var(--wpe--color--accent);
+	--wpe--navigation-menu--background-color: transparent;
+	--wpe--dropdown--background-color: var(--wpe--color--slate);
+	
+    // Main Body
+	--wpe--main--color: var(--wpe--color--black);
+	--wpe--main--background-color: var(--wpe--color--white);
+	--wpe--footer--color: var(--wpe--color--black);
+	--wpe--footer--background-color: var(--wpe--color--offwhite);
+	--wpe--heading--color: var(--wpe--color--black);
+	--wpe--border--light: 1px solid rgba(255, 255, 255, 0.1);
+	--wpe--border--extra-light: 1px solid rgba(255, 255, 255, 0.05);
+
+	// Type.
+	--wpe--font-weight--light: 300;
+	--wpe--font-weight--medium: 400;
+	--wpe--font-weight--bold: 700;
+
+	// Spacing.
+	--wpe--content--max-width: 800px;
+	--wpe--section--padding-y: 4rem;
+	--wpe--container--padding-x: 20px;
+	--wpe--container--max-width: 1200px;
+
+	// Shadows.
+	--wpe--shadow--large: 0 50px 120px -40px rgba(255, 107, 0, 0.1), 0 20px 60px -30px rgba(0, 0, 0, 0.8);
+}

@@ -1,0 +1,44 @@
+﻿# Old drafts and school reference folder
+Bao_cao_Chuyen_de_HOAN_CHINH*.docx
+Bao_cao_CDTTCN_IT43_Lan1_tuandm022_CHTM518.docx
+*QLTB*
+docx_extracted/
+*_Tu_Lieu_Cua_Truong*
+*Tu Lieu Cua Truong*
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production & Build outputs
+.next/
+*/.next/
+dist/
+*/dist/
+out/
+*/out/
+build/
+*/build/
+
+# Environment Variables & Secrets
+.env
+.env.local
+*.env.local
+*.env
+
+# Logs & Debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.~lock.*
+
+# Temp / Cache
+.faust/
+*.pyc
+__pycache__/
