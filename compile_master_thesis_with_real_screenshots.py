@@ -634,7 +634,17 @@ add_paragraph(doc, "Một thách thức lớn của tiếp thị số là sự k
 add_bullet(doc, "Trên nền tảng Threads: AI tự động bóc tách bài viết dài 1500 từ trên web thành một chuỗi bài đăng ngắn (Thread Storm 3-5 bài) cô đọng, giàu góc nhìn chuyên gia, tối ưu theo thuật toán lan truyền tự nhiên của Meta Threads.", "• ")
 add_bullet(doc, "Trên nền tảng Facebook Fanpage: Tự động tổng hợp thành bài viết truyền thông thảo luận (Discussion Post) kèm hình ảnh minh họa bắt mắt và câu kêu gọi hành động (CTA), tự động lên lịch đăng vào các khung giờ vàng có lượng tương tác cao nhất.", "• ")
 
-add_heading_3(doc, "7.3.4. Bảng Lộ trình Phát triển Hệ sinh thái 3 Giai đoạn (Product Development Roadmap)")
+add_heading_3(doc, "7.3.4. Trụ cột 4: Cỗ máy Khai phá Dữ liệu Khách hàng Đa nền tảng (B2B Lead Scraping & Intelligence Engine)")
+add_paragraph(doc, "Nhằm giải quyết bài toán cốt lõi của mọi doanh nghiệp là 'Tìm kiếm khách hàng mới', nhóm nghiên cứu định hướng xây dựng module Cào dữ liệu & Định danh khách hàng tiềm năng (Lead Scraping & Intelligence Engine) vận hành trên nền tảng Headless Browser (Playwright / Puppeteer) kết hợp AI phân loại ý định mua sắm (Intent Classification). Cỗ máy quét dữ liệu từ 3 nguồn trọng yếu:")
+add_bullet(doc, "Quét Website Doanh nghiệp: Tự động trích xuất thông tin doanh nghiệp (Mã số thuế, email lãnh đạo, hotline), đồng thời đo ngầm chỉ số Google Lighthouse của website họ. Nếu phát hiện website của họ đạt dưới 50 điểm hoặc tải quá 5 giây, hệ thống sẽ tự động gắn cờ 'Khách hàng nóng cần Tái thiết số'.", "• ")
+add_bullet(doc, "Quét Hội nhóm Facebook Doanh nghiệp & B2B: Lắng nghe và bóc tách các bài đăng tìm kiếm đối tác, nhu cầu làm website, booking báo chí truyền thông hoặc tìm nhà cung ứng.", "• ")
+add_bullet(doc, "Quét Nhóm Zalo Ngành nghề & Hiệp hội: Thu thập danh bạ và nhu cầu kết nối giao thương trong các cộng đồng kinh doanh chuyên biệt.", "• ")
+
+add_paragraph(doc, "Mô hình này mang lại Giá trị Kép (Dual-Value Architecture) độc nhất vô nhị:")
+add_bullet(doc, "Lợi ích cho chính Hừng Đông Media (Inward Acquisition): Tạo ra nguồn khách hàng tiềm năng dồi dào, tự động và liên tục cho đội ngũ kinh doanh chào bán các gói dịch vụ Tái Thiết Số (35 - 50 triệu) và Thuê bao Nuôi Web AI (7 triệu/tháng) mà không tốn chi phí quảng cáo trả phí (Paid Ads).", "1. ")
+add_bullet(doc, "Lợi ích giúp khách hàng của Hừng Đông tìm khách hàng của họ (Outward Growth Service): Tính năng này được đóng gói thành một 'Vũ khí bán hàng giá trị gia tăng' (Value-Added Feature). Khách hàng khi ký hợp đồng với Hừng Đông không chỉ sở hữu một website siêu tốc 100/100 chuẩn GEO, mà còn được hệ thống tự động quét và cung cấp danh sách khách hàng tiềm năng trong chính ngành nghề của họ hàng tuần.", "2. ")
+
+add_heading_3(doc, "7.3.5. Bảng Lộ trình Phát triển Hệ sinh thái 3 Giai đoạn (Product Development Roadmap)")
 add_paragraph(doc, "Lộ trình triển khai cụ thể được hoạch định theo 3 giai đoạn chiến lược trong năm 2026 - 2027:")
 
 t_roadmap = doc.add_table(rows=1, cols=4)
@@ -644,7 +654,7 @@ format_table_header(t_roadmap.rows[0], w_rm, ["Giai đoạn", "Thời gian", "Tr
 
 rm_data = [
     ("Giai đoạn 1", "Quý 4/2026", "Tích hợp AI Chatbot RAG 24/7 trên Next.js và đồng bộ Zalo OA Webhook.", "Tự động phản hồi 100% thắc mắc của khách hàng, tăng 40% tỷ lệ chuyển đổi Lead."),
-    ("Giai đoạn 2", "Quý 1/2027", "Phát triển Content Repurposing Engine tự động đăng bài lên Meta Threads và Facebook Fanpage.", "Tự động phủ sóng đa kênh, giảm 90% thời gian biên tập mạng xã hội."),
+    ("Giai đoạn 2", "Quý 1/2027", "Phát triển Content Repurposing Engine (Threads/FB) và Module Cào dữ liệu Lead Scraping.", "Tự động phủ sóng mạng xã hội, tự động tìm kiếm khách hàng tiềm năng cho Hừng Đông và đối tác."),
     ("Giai đoạn 3", "Quý 2/2027", "Đóng gói toàn bộ giải pháp thành nền tảng SaaS thương mại hóa (B2B AI Marketing Suite).", "Cung cấp giải pháp cho hơn 100 doanh nghiệp SMBs, tạo dòng tiền thuê bao định kỳ."),
 ]
 for r in rm_data:
