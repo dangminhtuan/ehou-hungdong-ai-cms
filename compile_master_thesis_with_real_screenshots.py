@@ -620,6 +620,36 @@ add_figure(doc, "fig_7_1_gantt_chart.png", "Hình 7.1: Sơ đồ Gantt Chart ti�
 add_heading_2(doc, "7.2. Đánh giá mức độ hoàn thành nhiệm vụ")
 add_paragraph(doc, "Nhóm sinh viên đã hoàn thành 100% mục tiêu đề ra, làm chủ hoàn toàn công nghệ Headless WordPress, GraphQL, Next.js 14 và AI Content Engine.")
 
+add_heading_2(doc, "7.3. Hướng phát triển mở rộng: Hệ sinh thái Tiếp thị Đa kênh Tự động bằng AI (Omnichannel AI Marketing Ecosystem)")
+add_paragraph(doc, "Dựa trên thành công của nền tảng Headless CMS và cỗ máy AI Content Engine hiện tại, nhóm nghiên cứu đã xây dựng lộ trình nâng cấp sản phẩm lên tầm cao mới, chuyển hóa đồ án từ một cổng thông tin website đơn lẻ thành một 'Hệ sinh thái Tiếp thị Đa kênh Tự động Hóa Khép Kín' (Omnichannel Automated Marketing Suite) nhằm tối đa hóa độ phủ sóng thương hiệu và tăng trưởng doanh thu cho doanh nghiệp tiếp nhận thực tập:")
+
+add_heading_3(doc, "7.3.1. Trụ cột 1: Tích hợp Trợ lý ảo AI Chatbot tư vấn 24/7 trên Website (RAG Customer Service)")
+add_paragraph(doc, "Nhóm dự kiến xây dựng module AI Chatbot tương tác thời gian thực gắn nổi tại góc phải website. Áp dụng công nghệ RAG (Retrieval-Augmented Generation) kết hợp Vector Database (Pinecone / ChromaDB), Chatbot sẽ đọc hiểu toàn bộ kho tri thức sản phẩm từ tệp /llms.txt và hệ thống bài viết trên WordPress. Khi khách hàng truy cập website và có thắc mắc về báo giá hoặc giải pháp, Chatbot sẽ tư vấn chuẩn xác trong vòng 1 giây, tự động chấm điểm khách hàng tiềm năng (Lead Scoring) và thu thập số điện thoại/Zalo để chuyển giao ngay lập tức cho đội ngũ kinh doanh.")
+
+add_heading_3(doc, "7.3.2. Trụ cột 2: Tự động hóa tiếp thị trên các ứng dụng trò chuyện OTT (Zalo Official Account & Telegram Bot)")
+add_paragraph(doc, "Theo khảo sát thị trường người dùng Việt Nam, các ứng dụng trò chuyện OTT như Zalo và Telegram sở hữu tỷ lệ mở tin nhắn (Open Rate) vượt trội >90% so với Email truyền thống (chỉ 15-20%). Nhóm định hướng mở rộng cỗ máy với cơ chế Event-Driven Webhook: Ngay sau khi ai_engine.js xuất bản thành công một bài viết mới, hệ thống sẽ tự động kích hoạt API gửi bản tin tóm tắt kèm đường dẫn truy cập trực tiếp tới kênh Telegram cộng đồng của khách hàng VIP và gửi thông báo qua Zalo ZNS / Zalo OA đến các đối tác quan tâm.")
+
+add_heading_3(doc, "7.3.3. Trụ cột 3: Cỗ máy Tái cấu trúc Nội dung Đa kênh trên Mạng Xã Hội (Facebook & Threads Automation)")
+add_paragraph(doc, "Một thách thức lớn của tiếp thị số là sự khác biệt về hành vi người dùng trên các nền tảng mạng xã hội khác nhau. Nhóm sẽ phát triển module 'Content Repurposing Engine' tự động phân rã bài viết dài:")
+add_bullet(doc, "Trên nền tảng Threads: AI tự động bóc tách bài viết dài 1500 từ trên web thành một chuỗi bài đăng ngắn (Thread Storm 3-5 bài) cô đọng, giàu góc nhìn chuyên gia, tối ưu theo thuật toán lan truyền tự nhiên của Meta Threads.", "• ")
+add_bullet(doc, "Trên nền tảng Facebook Fanpage: Tự động tổng hợp thành bài viết truyền thông thảo luận (Discussion Post) kèm hình ảnh minh họa bắt mắt và câu kêu gọi hành động (CTA), tự động lên lịch đăng vào các khung giờ vàng có lượng tương tác cao nhất.", "• ")
+
+add_heading_3(doc, "7.3.4. Bảng Lộ trình Phát triển Hệ sinh thái 3 Giai đoạn (Product Development Roadmap)")
+add_paragraph(doc, "Lộ trình triển khai cụ thể được hoạch định theo 3 giai đoạn chiến lược trong năm 2026 - 2027:")
+
+t_roadmap = doc.add_table(rows=1, cols=4)
+t_roadmap.style = 'Table Grid'
+w_rm = [Cm(2.0), Cm(3.2), Cm(6.5), Cm(4.3)]
+format_table_header(t_roadmap.rows[0], w_rm, ["Giai đoạn", "Thời gian", "Trụ cột tính năng phát triển", "Mục tiêu kỳ vọng"])
+
+rm_data = [
+    ("Giai đoạn 1", "Quý 4/2026", "Tích hợp AI Chatbot RAG 24/7 trên Next.js và đồng bộ Zalo OA Webhook.", "Tự động phản hồi 100% thắc mắc của khách hàng, tăng 40% tỷ lệ chuyển đổi Lead."),
+    ("Giai đoạn 2", "Quý 1/2027", "Phát triển Content Repurposing Engine tự động đăng bài lên Meta Threads và Facebook Fanpage.", "Tự động phủ sóng đa kênh, giảm 90% thời gian biên tập mạng xã hội."),
+    ("Giai đoạn 3", "Quý 2/2027", "Đóng gói toàn bộ giải pháp thành nền tảng SaaS thương mại hóa (B2B AI Marketing Suite).", "Cung cấp giải pháp cho hơn 100 doanh nghiệp SMBs, tạo dòng tiền thuê bao định kỳ."),
+]
+for r in rm_data:
+    add_table_row(t_roadmap, w_rm, r, [True, True, False, False])
+
 doc.add_page_break()
 
 # ============================================================
