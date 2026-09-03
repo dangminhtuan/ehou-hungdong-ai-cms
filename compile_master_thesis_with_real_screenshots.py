@@ -447,7 +447,11 @@ add_paragraph(doc, "Quy trình truy vấn dữ liệu bất đồng bộ giữa 
 
 add_figure(doc, "fig_3_3_graphql_sequence.png", "Hình 3.3: Sơ đồ Tuần tự (Sequence Diagram) truy vấn GraphQL qua Apollo Client")
 
-add_heading_2(doc, "3.4. Thiết kế chi tiết giải pháp kỹ thuật tương ứng 6 Trục Tối Ưu")
+add_heading_2(doc, "3.4. Lưu đồ xử lý bộ đệm tĩnh Next.js 14 ISR (Incremental Static Regeneration)")
+add_paragraph(doc, "Cơ chế bộ đệm phân tầng kết hợp giữa Edge Caching và tái tạo tĩnh ngầm Stale-While-Revalidate được trực quan hóa qua lưu đồ thuật toán kỹ thuật sau:")
+add_figure(doc, "fig_3_4_flowchart_nextjs_isr.png", "Hình 3.4: Lưu đồ thuật toán xử lý bộ đệm tĩnh Next.js 14 (ISR and Edge Caching)")
+
+add_heading_2(doc, "3.5. Thiết kế chi tiết giải pháp kỹ thuật tương ứng 6 Trục Tối Ưu")
 add_paragraph(doc, "Để chuyển hóa các bài toán nút thắt ở Chương 2 thành các giải pháp công nghệ khả thi, nhóm đã thiết kế kiến trúc kỹ thuật đồng bộ cho từng trục:")
 
 add_paragraph(doc, "1. Giải pháp tối ưu Hiệu năng (Trục 1): Thay thế toàn bộ quá trình render PHP động bằng cơ chế Static Site Generation (SSG) của Next.js 14. Các trang bài viết được biên dịch sẵn thành các tệp HTML/CSS/JS tĩnh ngay tại thời điểm build. Tích hợp cơ chế Incremental Static Regeneration (ISR) với tham số `revalidate: 60`, cho phép Next.js tự động cập nhật bài viết mới ngầm mà người dùng luôn được phục vụ từ cache tức thì với độ trễ <0.3s.")
@@ -490,7 +494,8 @@ add_heading_1(doc, "CHƯƠNG 4: LẬP TRÌNH VÀ TÍCH HỢP HỆ THỐNG (TUẦ
 add_heading_2(doc, "4.1. Lập trình cỗ máy AI Content Engine (ai_engine.js)")
 add_paragraph(doc, "Cỗ máy `ai_engine.js` là trái tim của hệ thống tự động hóa. Mã nguồn được thiết kế theo chuẩn module hóa cao:")
 
-add_figure(doc, "fig_4_5_code_ai_engine.png", "Hình 4.1: Khung mã nguồn xử lý cỗ máy AI Content Engine (ai_engine.js)")
+add_figure(doc, "fig_4_7_flowchart_ai_engine.png", "Hình 4.1: Lưu đồ thuật toán quy trình xử lý cỗ máy AI Content Engine và Pipeline RAG")
+add_figure(doc, "fig_4_5_code_ai_engine.png", "Hình 4.2: Khung mã nguồn xử lý cỗ máy AI Content Engine (ai_engine.js)")
 
 add_heading_2(doc, "4.2. Lập trình giao diện Frontend Next.js 14 Dark Mode")
 add_paragraph(doc, "Mã nguồn trang chủ `wp-templates/front-page.js` thực hiện truy vấn danh sách 10 bài viết mới nhất và bọc giao diện Card Grid:")
