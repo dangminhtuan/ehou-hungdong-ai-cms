@@ -15,17 +15,39 @@ from docx.oxml import OxmlElement
 doc = Document()
 FIGURES_DIR = r"D:\__G AG Projects\Thuc Tap Chuyen Nganh EHOU\report_figures"
 
-# Cấu hình lề trang chuẩn Đồ án tốt nghiệp EHOU (Trái 3.0cm, Phải 2.0cm, Trên 2.5cm, Dưới 2.5cm)
+# --- 1. Cấu hình lề trang chuẩn Đồ án tốt nghiệp EHOU ---
 for section in doc.sections:
     section.top_margin = Cm(2.5)
     section.bottom_margin = Cm(2.5)
     section.left_margin = Cm(3.0)
     section.right_margin = Cm(2.0)
 
-# Cấu hình Font mặc định Times New Roman cỡ 13pt
+# --- 2. Cấu hình Style mặc định (Normal) ---
 style_normal = doc.styles['Normal']
 style_normal.font.name = 'Times New Roman'
 style_normal.font.size = Pt(13)
+style_normal.font.color.rgb = RGBColor(0, 0, 0)
+
+# --- 3. Cấu hình CHUẨN XÁC các Style Heading 1, Heading 2, Heading 3 của Word ---
+for h_name, sz, is_italic, space_b, space_a in [
+    ('Heading 1', 14, False, 18, 8),
+    ('Heading 2', 13, False, 13, 6),
+    ('Heading 3', 13, True, 9, 4)
+]:
+    h_style = doc.styles[h_name]
+    h_style.font.name = 'Times New Roman'
+    h_style.font.size = Pt(sz)
+    h_style.font.bold = True
+    h_style.font.italic = is_italic
+    h_style.font.color.rgb = RGBColor(0, 0, 0) # Màu đen chuẩn học thuật
+    h_style.paragraph_format.space_before = Pt(space_b)
+    h_style.paragraph_format.space_after = Pt(space_a)
+    h_style.paragraph_format.keep_with_next = True
+
+# --- 4. Bật chế độ tự động cập nhật Field (TOC) khi mở file Word ---
+update_fields = OxmlElement('w:updateFields')
+update_fields.set(qn('w:val'), 'true')
+doc.settings.element.append(update_fields)
 
 def set_font(run, bold=False, size=13, color=None, italic=False):
     run.font.name = 'Times New Roman'
@@ -34,32 +56,34 @@ def set_font(run, bold=False, size=13, color=None, italic=False):
     run.italic = italic
     if color:
         run.font.color.rgb = RGBColor(*color)
+    else:
+        run.font.color.rgb = RGBColor(0, 0, 0)
 
 def add_heading_1(doc, text):
-    p = doc.add_paragraph()
+    p = doc.add_paragraph(text, style='Heading 1')
     p.paragraph_format.space_before = Pt(18)
     p.paragraph_format.space_after = Pt(8)
     p.paragraph_format.keep_with_next = True
-    run = p.add_run(text)
-    set_font(run, bold=True, size=14)
+    for r in p.runs:
+        set_font(r, bold=True, size=14)
     return p
 
 def add_heading_2(doc, text):
-    p = doc.add_paragraph()
+    p = doc.add_paragraph(text, style='Heading 2')
     p.paragraph_format.space_before = Pt(13)
     p.paragraph_format.space_after = Pt(6)
     p.paragraph_format.keep_with_next = True
-    run = p.add_run(text)
-    set_font(run, bold=True, size=13)
+    for r in p.runs:
+        set_font(r, bold=True, size=13)
     return p
 
 def add_heading_3(doc, text):
-    p = doc.add_paragraph()
+    p = doc.add_paragraph(text, style='Heading 3')
     p.paragraph_format.space_before = Pt(9)
     p.paragraph_format.space_after = Pt(4)
     p.paragraph_format.keep_with_next = True
-    run = p.add_run(text)
-    set_font(run, bold=True, italic=True, size=13)
+    for r in p.runs:
+        set_font(r, bold=True, italic=True, size=13)
     return p
 
 def add_paragraph(doc, text, indent=True, bold=False, italic=False):
@@ -173,7 +197,34 @@ def add_table_row(table, col_widths, cells_data, is_center_list=None):
         set_font(run, size=10.5)
     return row
 
-print("--- Bắt đầu biên soạn Báo cáo Thực tập theo Mẫu Chuẩn Khoa CNTT - EHOU ---")
+def add_native_word_toc(doc):
+    """Thêm trường Mục lục tự động chuẩn Microsoft Word (Clickable TOC Field)"""
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(6)
+    p.paragraph_format.space_after = Pt(12)
+    
+    r1 = p.add_run()
+    fld1 = OxmlElement('w:fldChar')
+    fld1.set(qn('w:fldCharType'), 'begin')
+    r1._r.append(fld1)
+
+    r2 = p.add_run()
+    instr = OxmlElement('w:instrText')
+    instr.set(qn('xml:space'), 'preserve')
+    instr.text = 'TOC \\o "1-3" \\h \\z \\u'
+    r2._r.append(instr)
+
+    r3 = p.add_run()
+    fld2 = OxmlElement('w:fldChar')
+    fld2.set(qn('w:fldCharType'), 'separate')
+    r3._r.append(fld2)
+
+    r4 = p.add_run()
+    fld3 = OxmlElement('w:fldChar')
+    fld3.set(qn('w:fldCharType'), 'end')
+    r4._r.append(fld3)
+
+print("--- Bắt đầu biên soạn Báo cáo với Style Heading 1/2/3 và Native Word TOC chuẩn ---")
 
 # ============================================================
 # 1. TRANG BÌA CHUẨN ĐỒ ÁN TỐT NGHIỆP EHOU
@@ -248,7 +299,7 @@ set_font(run, bold=True, size=13)
 doc.add_page_break()
 
 # ============================================================
-# 2. TRANG LỜI CẢM ƠN & LỜI CAM ĐOAN
+# 2. TRANG LỜI CẢM ƠN & LỜI CAM ĐOAN (Heading 1)
 # ============================================================
 add_heading_1(doc, "LỜI CẢM ƠN")
 add_paragraph(doc, "Lời đầu tiên, em xin bày tỏ lòng biết ơn sâu sắc và chân thành nhất đến Ban Giám hiệu Trường Đại học Mở Hà Nội, Viện Đào tạo & Phát triển Học tập Suốt đời, cùng toàn thể quý Thầy/Cô giáo Khoa Công nghệ Thông tin. Trong suốt quá trình học tập dưới mái trường, Thầy/Cô đã tận tình trang bị cho em những nền tảng kiến thức khoa học máy tính vững chắc, tư duy hệ thống và đạo đức nghề nghiệp quý báu.")
@@ -270,12 +321,9 @@ set_font(run, bold=True, italic=True)
 doc.add_page_break()
 
 # ============================================================
-# 3. TRANG ĐÁNH GIÁ THỰC TẬP CỦA KHOA (NHẬN XÉT GV GIÁM SÁT)
+# 3. TRANG ĐÁNH GIÁ THỰC TẬP CỦA KHOA (Heading 1)
 # ============================================================
-p_eva = doc.add_paragraph()
-p_eva.alignment = WD_ALIGN_PARAGRAPH.CENTER
-r_eva = p_eva.add_run("TRƯỜNG ĐẠI HỌC MỞ HÀ NỘI\nKHOA CÔNG NGHỆ THÔNG TIN\n***\nPHIẾU ĐÁNH GIÁ KẾT QUẢ THỰC TẬP CHUYÊN NGÀNH")
-set_font(r_eva, bold=True, size=14)
+add_heading_1(doc, "PHIẾU ĐÁNH GIÁ KẾT QUẢ THỰC TẬP CHUYÊN NGÀNH (KHOA CNTT)")
 
 add_paragraph(doc, "1. Họ và tên sinh viên: ĐẶNG MINH TUẤN                    Lớp: CHTM518", indent=False, bold=True)
 add_paragraph(doc, "2. Ngành đào tạo: Công nghệ Thông tin                       Mã sinh viên: tuandm022", indent=False, bold=True)
@@ -338,12 +386,9 @@ for row in t_sign_gv.rows:
 doc.add_page_break()
 
 # ============================================================
-# 4. TRANG NHẬN XÉT CỦA CƠ QUAN NƠI THỰC TẬP (HỪNG ĐÔNG MEDIA)
+# 4. TRANG NHẬN XÉT CỦA CƠ QUAN THỰC TẬP (Heading 1)
 # ============================================================
-p_dn = doc.add_paragraph()
-p_dn.alignment = WD_ALIGN_PARAGRAPH.CENTER
-r_dn = p_dn.add_run("CÔNG TY CỔ PHẦN TRUYỀN THÔNG HỪNG ĐÔNG\n(HỪNG ĐÔNG MEDIA SOLUTIONS)\n***\nPHIẾU NHẬN XÉT VÀ ĐÁNH GIÁ SINH VIÊN THỰC TẬP")
-set_font(r_dn, bold=True, size=14)
+add_heading_1(doc, "PHIẾU NHẬN XÉT VÀ ĐÁNH GIÁ SINH VIÊN THỰC TẬP (HỪNG ĐÔNG MEDIA)")
 
 add_paragraph(doc, "Cơ quan tiếp nhận thực tập: CÔNG TY CỔ PHẦN TRUYỀN THÔNG HỪNG ĐÔNG", indent=False, bold=True)
 add_paragraph(doc, "Địa chỉ: Hà Nội, Việt Nam                                  Điện thoại: (+84) 0932 059 344", indent=False)
@@ -383,62 +428,25 @@ set_font(r_sdn, bold=True, size=12)
 doc.add_page_break()
 
 # ============================================================
-# 5. TRANG MỤC LỤC TỔNG THỂ (TABLE OF CONTENTS)
+# 5. TRANG MỤC LỤC TỰ ĐỘNG CHUẨN MICROSOFT WORD (CLICKABLE TOC)
 # ============================================================
-add_heading_1(doc, "MỤC LỤC TỔNG THỂ")
-toc_items = [
-    ("LỜI CẢM ƠN", "2"),
-    ("LỜI CAM ĐOAN", "2"),
-    ("PHIẾU ĐÁNH GIÁ THỰC TẬP CỦA KHOA (NHẬN XÉT GV GIÁM SÁT)", "3"),
-    ("PHIẾU NHẬN XÉT CỦA CƠ QUAN NƠI THỰC TẬP (HỪNG ĐÔNG MEDIA)", "4"),
-    ("DANH MỤC HÌNH ẢNH & SƠ ĐỒ KỸ THUẬT (28 HÌNH)", "6"),
-    ("PHẦN I: TỔNG QUAN VỀ CƠ QUAN NƠI THỰC TẬP, TỔ CHỨC NHÂN SỰ & MÔI TRƯỜNG LÀM VIỆC", "7"),
-    ("  1.1. Lịch sử hình thành và sứ mệnh của Hừng Đông Media", "7"),
-    ("  1.2. Cơ cấu tổ chức hành chính, nhân sự và quy trình Agile", "7"),
-    ("  1.3. Môi trường làm việc thực tế và văn hóa doanh nghiệp", "8"),
-    ("  1.4. Hình ảnh minh chứng hoạt động thực tập tại doanh nghiệp", "9"),
-    ("PHẦN II: NỘI DUNG CÔNG VIỆC ĐƯỢC PHÂN CÔNG & PHƯƠNG PHÁP THỰC HIỆN", "10"),
-    ("  2.1. Nội dung công việc phân công và Ma trận RACI", "10"),
-    ("  2.2. Khảo sát hiện trạng và phát biểu bài toán 'Tối ưu mọi mặt'", "11"),
-    ("  2.3. Sơ đồ Use Case và Sơ đồ Hoạt động (Activity Diagram)", "14"),
-    ("  2.4. Phương pháp tiếp cận: Kiến trúc phân tách Decoupled Headless CMS 3 tầng", "17"),
-    ("  2.5. Thiết kế CSDL, Schema GraphQL và Lưu đồ thuật toán bộ đệm Next.js ISR", "19"),
-    ("  2.6. Thiết kế chi tiết các giải pháp kỹ thuật cho 6 Trục Tối Ưu", "22"),
-    ("PHẦN III: CHI TIẾT CÁC KẾT QUẢ CÔNG VIỆC THỰC HIỆN TẠI DOANH NGHIỆP", "25"),
-    ("  3.1. Lập trình cỗ máy AI Content Engine và Lưu đồ thuật toán RAG Pipeline", "25"),
-    ("  3.2. Lập trình giao diện Frontend Next.js 14 Dark Mode & Ảnh chụp thực tế", "28"),
-    ("  3.3. Khắc phục sự cố kỹ thuật và kiểm thử Google Lighthouse 100/100 tuyệt đối", "32"),
-    ("  3.4. Ma trận kiểm thử thực nghiệm 6 Trục Tối Ưu", "34"),
-    ("  3.5. Bảng đối chuẩn định lượng kết quả Trước và Sau tối ưu (Before vs After)", "36"),
-    ("  3.6. Xây dựng Website Marketing Landing Page và chuẩn hóa giao thức llms.txt", "38"),
-    ("PHẦN IV: ĐÁNH GIÁ KẾT QUẢ, KIẾN THỨC TÍCH LŨY VÀ SO SÁNH THỰC TẾ DOANH NGHIỆP", "44"),
-    ("  4.1. Những nội dung kiến thức lý thuyết đã được củng cố", "44"),
-    ("  4.2. Những kỹ năng thực hành đã học hỏi được", "45"),
-    ("  4.3. Những kinh nghiệm thực tiễn đã tích luỹ được", "46"),
-    ("  4.4. So sánh, đánh giá kiến thức học trong nhà trường và thực tế doanh nghiệp", "47"),
-    ("  4.5. Kiến nghị và giải pháp cho hoạt động giảng dạy và thực tập của Khoa CNTT", "49"),
-    ("PHẦN V: TỔNG KẾT VÀ HƯỚNG PHÁT TRIỂN TƯƠNG LAI", "51"),
-    ("  5.1. Sơ đồ Gantt Chart tiến độ 16 tuần thực tập", "51"),
-    ("  5.2. Đánh giá mức độ hoàn thành mục tiêu", "52"),
-    ("  5.3. Hướng phát triển mở rộng: Hệ sinh thái Tiếp thị Đa kênh Tự động bằng AI", "52"),
-    ("PHỤ LỤC 1: NHẬT KÝ THỰC TẬP 16 TUẦN CHI TIẾT (WEEKLY LOGBOOK)", "57"),
-    ("PHỤ LỤC 2: TOÀN VĂN MÃ NGUỒN CỐT LÕI (AI_ENGINE.JS)", "59"),
-]
-for title, pg in toc_items:
-    p = doc.add_paragraph()
-    p.paragraph_format.line_spacing = 1.15
-    p.paragraph_format.space_after = Pt(2)
-    p.paragraph_format.tab_stops.add_tab_stop(Cm(16.0), docx.enum.text.WD_TAB_ALIGNMENT.RIGHT, docx.enum.text.WD_TAB_LEADER.DOTS)
-    r = p.add_run(f"{title}\t{pg}")
-    if title.startswith("PHẦN") or title.startswith("LỜI") or title.startswith("PHIẾU") or title.startswith("DANH") or title.startswith("PHỤ"):
-        set_font(r, bold=True, size=11.5)
-    else:
-        set_font(r, size=11)
+p_toc_title = doc.add_paragraph()
+p_toc_title.paragraph_format.space_before = Pt(18)
+p_toc_title.paragraph_format.space_after = Pt(8)
+r_toct = p_toc_title.add_run("MỤC LỤC TỔNG THỂ")
+set_font(r_toct, bold=True, size=15)
+
+p_guide = doc.add_paragraph()
+r_g = p_guide.add_run("(Mục lục tự động chuẩn Microsoft Word: Giữ phím Ctrl và Click chuột trái vào bất kỳ dòng nào để nhảy trực tiếp tới trang nội dung tương ứng)")
+set_font(r_g, italic=True, size=11, color=(100, 116, 139))
+
+# Chèn trường TOC tự động của Word
+add_native_word_toc(doc)
 
 doc.add_page_break()
 
 # ============================================================
-# 6. DANH MỤC HÌNH ẢNH & SƠ ĐỒ KỸ THUẬT (28 HÌNH)
+# 6. DANH MỤC HÌNH ẢNH & SƠ ĐỒ KỸ THUẬT (Heading 1)
 # ============================================================
 add_heading_1(doc, "DANH MỤC HÌNH ẢNH & SƠ ĐỒ KỸ THUẬT (28 HÌNH)")
 figs_all = [
@@ -480,7 +488,7 @@ for item, pg in figs_all:
 doc.add_page_break()
 
 # ============================================================
-# PHẦN I
+# PHẦN I (Heading 1)
 # ============================================================
 add_heading_1(doc, "PHẦN I: TỔNG QUAN VỀ CƠ QUAN NƠI THỰC TẬP, TỔ CHỨC NHÂN SỰ & MÔI TRƯỜNG LÀM VIỆC")
 
@@ -511,7 +519,7 @@ add_figure(doc, "fig_1_3_minh_chung_thuc_tap.jpg", "Hình 1.2: Minh chứng th�
 doc.add_page_break()
 
 # ============================================================
-# PHẦN II
+# PHẦN II (Heading 1)
 # ============================================================
 add_heading_1(doc, "PHẦN II: NỘI DUNG CÔNG VIỆC ĐƯỢC PHÂN CÔNG & PHƯƠNG PHÁP THỰC HIỆN")
 
@@ -601,7 +609,7 @@ for r in arch_map_data:
 doc.add_page_break()
 
 # ============================================================
-# PHẦN III
+# PHẦN III (Heading 1)
 # ============================================================
 add_heading_1(doc, "PHẦN III: CHI TIẾT CÁC KẾT QUẢ CÔNG VIỆC THỰC HIỆN TẠI DOANH NGHIỆP")
 
@@ -684,7 +692,7 @@ add_figure(doc, "fig_6_7_real_browser_llms.png", "Hình 3.16: Ảnh chụp thự
 doc.add_page_break()
 
 # ============================================================
-# PHẦN IV (MỤC MỚI BỔ SUNG ĐẦY ĐỦ THEO YÊU CẦU CỦA KHOA)
+# PHẦN IV (Heading 1)
 # ============================================================
 add_heading_1(doc, "PHẦN IV: ĐÁNH GIÁ KẾT QUẢ, KIẾN THỨC TÍCH LŨY VÀ SO SÁNH THỰC TẾ DOANH NGHIỆP")
 
@@ -734,7 +742,7 @@ add_bullet(doc, "Mở rộng mạng lưới hợp tác doanh nghiệp công ngh�
 doc.add_page_break()
 
 # ============================================================
-# PHẦN V
+# PHẦN V (Heading 1)
 # ============================================================
 add_heading_1(doc, "PHẦN V: TỔNG KẾT VÀ HƯỚNG PHÁT TRIỂN TƯƠNG LAI")
 
@@ -789,7 +797,7 @@ for r in rm_data:
 doc.add_page_break()
 
 # ============================================================
-# PHỤ LỤC 1 & 2
+# PHỤ LỤC 1 & 2 (Heading 1)
 # ============================================================
 add_heading_1(doc, "PHỤ LỤC 1: NHẬT KÝ THỰC TẬP 16 TUẦN CHI TIẾT (WEEKLY LOGBOOK)")
 add_paragraph(doc, "Dưới đây là nhật ký chi tiết quá trình làm việc và triển khai nhiệm vụ thực tập từng tuần tại Hừng Đông Media:")
@@ -884,6 +892,6 @@ legacy_path = r"D:\__G AG Projects\Thuc Tap Chuyen Nganh EHOU\Bao_Cao_Thuc_Tap.d
 doc.save(official_path)
 doc.save(legacy_path)
 
-print(f"🎉 ĐÃ XUẤT BẢN THÀNH CÔNG BÁO CÁO CHUẨN MẪU KHOA CNTT - EHOU:")
-print(f"   -> {official_path}")
-print(f"   -> {legacy_path}")
+print("🎉 ĐÃ BIÊN SOẠN XONG BÁO CÁO VỚI HEADING 1/2/3 VÀ MỤC LỤC TỰ ĐỘNG CHUẨN MICROSOFT WORD!")
+print(f"   -> File: {official_path}")
+print(f"   -> File: {legacy_path}")
